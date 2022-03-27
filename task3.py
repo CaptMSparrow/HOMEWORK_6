@@ -1,25 +1,23 @@
-def inspect(f):
+def inspect(concat):
     def wrapp(*args, **kwargs):
         print(f'Args: {args}')
         print(f'Kwargs: {kwargs}')
-        words = [word for word in args]
-        if kwargs:
-            words.reverse()
-            print('Retvalue: ', *words)
-        else:
-            print('Retvalue: ', *words)
-        return f(*args, **kwargs)
+        retval = concat(*args, **kwargs)
+        print('Retvalue:', retval)
+        return retval
     return wrapp
 
 
 @inspect
-def f(*args, reversed=False):
-    words = [word for word in args]
-    if reversed:
-        words.reverse()
-        print(*words)
+def concat(*args, revers=False) -> str:
+    words_str = ''.join(args)
+    if revers:
+        words_l = list(reversed(args))
+        words= ''.join(words_l)
+        return words
     else:
-        print(*words)
+        return words_str
 
 
-f('Hi', ' ', 'world', reversed=True)
+concatenated = concat('Hi', ' ', 'world', revers=False)
+print(concatenated)
